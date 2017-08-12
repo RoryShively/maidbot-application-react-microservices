@@ -16,9 +16,9 @@ import RootComponent from './Root';
 import MyContainer from './containers/Home';
 import LoginContainer from './containers/Login';
 
-const initialState = window.__INITIAL_STATE__;
+// const initialState = window.__INITIAL_STATE__;
 const history = createHistory();
-const store = configureStore(history, initialState);
+const store = configureStore(history);
 const mountNode = document.getElementById('content');
 
 ReactDOM.render(

@@ -1,11 +1,13 @@
 /* @flow */
 
 import { combineReducers } from 'redux';
-import { reducer as forms } from 'redux-form';
-import { routerReducer as router } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
+import { routerReducer as routerReducer } from 'react-router-redux';
+import loginReducer from '../containers/Login/reducer';
 
 
 export default combineReducers({
-  router,
-  form: forms,
+  router: routerReducer,
+  form: formReducer,
+  login: loginReducer,
 });

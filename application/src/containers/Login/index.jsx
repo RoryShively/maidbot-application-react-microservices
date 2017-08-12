@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 
+import * as action from './action';
 import LoginForm from './components/LoginForm'
 
 
@@ -19,7 +20,7 @@ class MyContainer extends React.Component {
           <Col sm={{size: 6, offset: 3}}>
             <h1>Log In</h1>
             <LoginForm
-              login={(e) => { e.preventDefault; console.log(e); }}
+              login={(e) => { e.preventDefault; console.log(e); this.props.login(e.username, e.password); }}
             />
           </Col>
         </Row>
@@ -28,4 +29,10 @@ class MyContainer extends React.Component {
   }
 }
 
-export default connect()(MyContainer);
+export default connect(
+  null,
+  (dispatch) => ({
+    login: (username, password) =>
+      dispatch(action.login(username, password)),
+  }),
+)(MyContainer);
