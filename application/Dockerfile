@@ -10,6 +10,9 @@ COPY ./scripts/entrypoint.sh /
 WORKDIR /app
 
 # Set the entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+# ENTRYPOINT ["/entrypoint.sh"]
+RUN \
+  yarn install && \
+  npm rebuild node-sass --force
 
 CMD ["node"]
