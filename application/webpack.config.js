@@ -11,6 +11,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
   },
   module: {
     loaders: [
@@ -29,6 +30,9 @@ module.exports = {
       }
     ],
     noParse: ["react"]
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   resolve: {
     extensions: ['', '.js', '.jsx']

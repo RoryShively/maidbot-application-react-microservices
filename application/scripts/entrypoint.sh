@@ -7,5 +7,7 @@ echo "ENV:    $NODE_ENV"
 # Install dependencies
 yarn install
 
+npm rebuild node-sass --force
+
 # Run!
 exec "$@"

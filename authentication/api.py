@@ -4,9 +4,11 @@ import jwt
 from datetime import datetime, timedelta
 from flask import Flask, make_response, g, request
 from flask_restful import Resource, Api
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-api = Api(app)
+CORS(app)
+Api(app)
 
 @app.route('/', methods=['GET'])
 def get_jwt():
