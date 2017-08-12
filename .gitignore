@@ -1,0 +1,6 @@
+/authentication_temp
+.git
+
+**/node_modules
+**/dist
+

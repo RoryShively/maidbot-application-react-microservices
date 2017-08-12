@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  application:
+    build: ./application
+    command: npm start
+    volumes:
+      - ./application:/app
+    ports:
+      - 5000:3000
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    depends_on:
+      - authentication-service
+      - message-service
+
+  # authentication-service:
+  #   build: ./authentication_tmep
+  #   command: npm start
+  #   volumes:
+  #     - ./authentication_tmep:/app
+  #   ports:
+  #     - 5001:3000
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: 3000
+
+  authentication-service:
+    build: ./authentication
+    volumes:
+      - ./authentication:/app
+    ports:
+      - 5001:3000
+
+  message-service:
+    build: ./message
+    volumes:
+      - ./message:/usr/src/app
+    ports:
+      - 5002:3000
