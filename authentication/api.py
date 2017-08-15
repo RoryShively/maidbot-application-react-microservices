@@ -1,7 +1,6 @@
 # Product Service
 
 import jwt
-import json
 from datetime import datetime, timedelta
 from flask import Flask, make_response, g, request, jsonify
 from flask_restful import Resource, Api
@@ -21,17 +20,21 @@ def login():
     password = data.get('password', None)
 
     if not username or not password:
-        return jsonify({
+        response = jsonify({
             'error': 'credentials incomplete'
         })
+        response.status_code = 401
+        return response
 
     db_user = UserTable()
     user = db_user.first('username', username)
 
     if not user:
-        return jsonify({
+        response = jsonify({
             'error': 'credentials incorrect'
         })
+        response.status_code = 401
+        return response
 
     user = User(user=user)
 
@@ -43,17 +46,19 @@ def login():
             'iat': datetime.utcnow(),
         }, app.config.get('JWT_KEY', 'changeme'))
 
-        response_data = {
+        response = jsonify({
             'token': token.decode('utf-8'),
             'user': user.serialize(),
-        }
-
-        return jsonify(response_data)
+        })
+        response.status_code = 200
+        return response
 
     else:
-        return jsonify({
+        response = jsonify({
             'error': 'credentials incorrect'
         })
+        response.status_code = 401
+        return response
 
 
 if __name__ == '__main__':

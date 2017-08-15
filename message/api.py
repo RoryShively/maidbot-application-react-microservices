@@ -12,12 +12,10 @@ api = Api(app)
 
 @app.before_request
 def process_token():
-    token = request.cookies.get(
-        'jwt',
-        request.headers.get(
-            'Authorization',
-            jwt.encode({'exp': 0}, 'changeme')
-        ))
+    token = request.headers.get(
+        'Authorization',
+        jwt.encode({'exp': 0}, 'changeme')
+    )
     try:
         user_info = jwt.decode(token, 'changeme')
         g.user_info = user_info
