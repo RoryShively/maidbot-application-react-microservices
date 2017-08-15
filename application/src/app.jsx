@@ -5,7 +5,7 @@ require('./stylesheets/main.sass')
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Link, browserHistory , IndexRoute } from 'react-router';
-import  { BrowserRouter, Route } from 'react-router-dom';
+import  { HashRouter, Route } from 'react-router-dom';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
 import { Provider } from 'react-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -23,9 +23,9 @@ const mountNode = document.getElementById('content');
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <HashRouter>
       <RootComponent />
-    </BrowserRouter>
+    </HashRouter>
   </Provider>,
   mountNode
 );
