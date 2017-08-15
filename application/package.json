@@ -24,6 +24,7 @@
     "react-router-redux": "next",
     "reactstrap": "^4.8.0",
     "redux": "^3.5.2",
+    "redux-devtools": "^3.4.0",
     "redux-form": "^7.0.3",
     "redux-thunk": "^2.2.0"
   },

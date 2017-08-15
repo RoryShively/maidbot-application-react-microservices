@@ -9,5 +9,5 @@ import loginReducer from '../containers/Login/reducer';
 export default combineReducers({
   router: routerReducer,
   form: formReducer,
-  login: loginReducer,
+  userInfo: loginReducer,
 });

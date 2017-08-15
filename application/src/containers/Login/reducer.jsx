@@ -1,7 +1,8 @@
 import {
   LOGGING_IN,
   LOG_IN_SUCCESS,
-  LOG_IN_ERROR
+  LOG_IN_ERROR,
+  LOGGED_OUT,
 } from './action';
 
 export default (state = {}, action) => {
@@ -14,12 +15,17 @@ export default (state = {}, action) => {
       return Object.assign({}, state, {
         loginStatus: 'SUCCESS',
         token: action.token,
+        data: action.user,
+        loginError: null,
       });
     case LOG_IN_ERROR:
       return Object.assign({}, state, {
         loginStatus: 'ERROR',
         loginError: action.err,
       });
+
+    case LOGGED_OUT:
+      return {};
     default:
       return state;
   }

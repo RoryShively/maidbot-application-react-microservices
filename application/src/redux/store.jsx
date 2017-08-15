@@ -14,6 +14,8 @@ export default (history, initialState = {}) => {
 
   const enhancers = [
     applyMiddleware(...middlewares),
+    typeof window === 'object' && typeof window.devToolsExtension !== 'undefined' ?
+      window.devToolsExtension() : f => f,
   ];
 
   const store = createStore(rootReducer, initialState, compose(...enhancers));

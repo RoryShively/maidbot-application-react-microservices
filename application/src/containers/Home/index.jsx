@@ -1,34 +1,15 @@
-import React from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
-import axios from 'axios';
 
-const getMessage = (token) => {
-  axios.get('http://localhost:5002', {
-    headers: {
-      Authorization: token,
-    },
-  })
-    .then((res) => {
-        console.log('res', res);
-      })
-      .catch((err) => {
-        console.log('error',err);
-      });
-}
-
-axios.get('http://localhost:5001')
-  .then((res) => {
-      const token = res.data;
-      getMessage(token);
-      console.log('res', res);
-    })
-    .catch((err) => {
-      console.log('error',err);
-    });
+import * as action from './action';
 
 
-class MyContainer extends React.Component {
+class HomeContainer extends Component {
+
+  componentDidMount() {
+    this.props.fetchMessages(this.props.userInfo.token);
+  }
 
   render() {
     return (
@@ -46,4 +27,10 @@ class MyContainer extends React.Component {
   }
 }
 
-export default connect()(MyContainer);
+export default connect(
+  ({ messages, userInfo }) => ({ messages, userInfo }),
+  (dispatch) => ({
+    fetchMessages: (token) =>
+      dispatch(action.fetchMessages(token)),
+  }),
+)(HomeContainer);

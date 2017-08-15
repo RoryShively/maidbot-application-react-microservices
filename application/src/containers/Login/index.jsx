@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 
@@ -6,12 +6,14 @@ import * as action from './action';
 import LoginForm from './components/LoginForm'
 
 
-class MyContainer extends React.Component {
+class LoginContainer extends Component {
 
-  submitForm(e) {
-    e.preventDefault;
-    console.log(this.state);
-  };
+  getLoginError() {
+    if (this.props.userInfo.loginStatus === 'ERROR') {
+      return <strong>{this.props.userInfo.loginError}</strong>
+    }
+    return null
+  }
 
   render() {
     return (
@@ -20,8 +22,9 @@ class MyContainer extends React.Component {
           <Col sm={{size: 6, offset: 3}}>
             <h1>Log In</h1>
             <LoginForm
-              login={(e) => { e.preventDefault; console.log(e); this.props.login(e.username, e.password); }}
+              login={(e) => { this.props.loginUser(e.username, e.password); }}
             />
+            {this.getLoginError()}
           </Col>
         </Row>
       </section>
@@ -30,9 +33,9 @@ class MyContainer extends React.Component {
 }
 
 export default connect(
-  null,
+  ({ userInfo }: Reducer) => ({ userInfo }),
   (dispatch) => ({
-    login: (username, password) =>
+    loginUser: (username, password) =>
       dispatch(action.login(username, password)),
   }),
-)(MyContainer);
+)(LoginContainer);
