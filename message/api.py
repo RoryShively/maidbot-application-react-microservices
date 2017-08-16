@@ -1,6 +1,7 @@
-# Product Service
+# Message Service
 
 import jwt
+import yaml
 from datetime import datetime, timedelta
 from flask import Flask, make_response, g, request
 from flask_restful import Resource, Api
@@ -10,12 +11,8 @@ app = Flask(__name__)
 CORS(app)
 api = Api(app)
 
-@app.before_request
-def process_token():
-    token = request.headers.get(
-        'Authorization',
-        jwt.encode({'exp': 0}, 'changeme')
-    )
+
+def process_token(token):
     try:
         user_info = jwt.decode(token, 'changeme')
         g.user_info = user_info
@@ -30,18 +27,18 @@ def process_token():
 
 class Message(Resource):
     def get(self):
-        return {
-            'messages': [
-                {
-                    'user': 'kobebacon',
-                    'message': 'Hey whats up?',
-                },
-                {
-                    'user': 'nara_the_ham',
-                    'message': 'Making a new react app with microservices, you?',
-                },
-            ]
-        }
+        process_token(request.headers.get('Authorization'))
+        try:
+            if not g.user_info:
+                return 'asdf'
+        except AttributeError as e:
+            return 'AttributeError'
+
+        with open("messages.yaml", 'r') as stream:
+            try:
+                return yaml.load(stream)
+            except yaml.YAMLError as exc:
+                print(exc)
 
 api.add_resource(Message, '/')
 
