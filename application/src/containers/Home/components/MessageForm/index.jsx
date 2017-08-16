@@ -4,27 +4,17 @@ import { Row, Col, Button } from 'reactstrap';
 
 import TextField from '../../../../components/TextField';
 
-const LoginForm = props => {
-  const { handleSubmit, pristine, reset, submitting, login } = props
+const MessageForm = props => {
+  const { handleSubmit, pristine, reset, submitting, postMessage } = props
   return (
-    <form onSubmit={handleSubmit(login)}>
+    <form onSubmit={handleSubmit(postMessage)}>
       <Row>
         <Col sm="12">
           <Field
-            name="username"
+            name="message"
             component={TextField}
             type="text"
-            placeholder="Username"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col sm="12">
-          <Field
-            name="password"
-            component={TextField}
-            type="password"
-            placeholder="Password"
+            placeholder="Start typing..."
           />
         </Col>
       </Row>
@@ -34,7 +24,7 @@ const LoginForm = props => {
             color="primary"
             type="submit" disabled={pristine || submitting}
           >
-            Submit
+            Send
           </Button>
         </Col>
       </Row>
@@ -43,5 +33,5 @@ const LoginForm = props => {
 }
 
 export default reduxForm({
-  form: 'login' // a unique identifier for this form
-})(LoginForm)
+  form: 'message' // a unique identifier for this form
+})(MessageForm)

@@ -6,6 +6,7 @@ import ReactChatView from 'react-chatview';
 import cx from 'classnames';
 
 import * as action from './action';
+import MessageForm from './components/MessageForm'
 
 
 class HomeContainer extends Component {
@@ -52,10 +53,9 @@ class HomeContainer extends Component {
           </Col>
           <Col sm={12} md={{size: 3, offset: 2}}>
             <h1><span className="thin">message</span>room</h1>
-            <Form>
-              <Input style={{ marginBottom: 5 }} type="text" name="email" placeholder="start typing..." />
-              <Button color="primary" block>Send</Button>
-            </Form>
+            <MessageForm
+              postMessage={(e) => { this.props.postMessage({ user:this.props.userInfo.data.username, message: e.message }, this.props.userInfo.token); }}
+            />
           </Col>
         </Row>
       </section>
@@ -68,5 +68,7 @@ export default connect(
   (dispatch) => ({
     fetchMessages: (token) =>
       dispatch(action.fetchMessages(token)),
+    postMessage: (data, token) =>
+      dispatch(action.postMessage(data, token)),
   }),
 )(HomeContainer);

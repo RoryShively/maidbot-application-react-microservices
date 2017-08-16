@@ -38,7 +38,29 @@ class Message(Resource):
             try:
                 return yaml.load(stream)
             except yaml.YAMLError as exc:
-                print(exc)
+                response = make_response('Server Error')
+                response.status_code = 500
+                return response
+
+    def post(self):
+        process_token(request.headers.get('Authorization'))
+        data = request.get_json()
+
+        with open("messages.yaml", 'r') as stream:
+            try:
+                old_data = yaml.load(stream)
+            except yaml.YAMLError as exc:
+                response = make_response('Server Error')
+                response.status_code = 500
+                return response
+
+        old_data['messages'] += [data]
+        # return old_data
+
+        with open("messages.yaml", "w") as yaml_file:
+            yaml_file.write(yaml.dump(old_data, default_flow_style=False))
+
+        return data
 
 api.add_resource(Message, '/')
 
