@@ -17,10 +17,10 @@ export const fetchMessages = (token) =>
     return axios.get(MESSAGES_URL)
       .then((res) => {
         console.log(res);
-        dispatch({ type: MESSAGES_SUCCESS });
+        dispatch({ type: MESSAGES_SUCCESS, data: res.data.messages });
       })
       .catch((err) => {
         console.log(err);
-        dispatch({ type: MESSAGES_FAILURE });
+        dispatch({ type: MESSAGES_FAILURE, err: err });
       });
   };

@@ -15,10 +15,11 @@ export const login = (username, password) =>
 
     return axios.post(LOGIN_URL, data)
       .then((res) => {
-        dispatch({ type: LOG_IN_SUCCESS, user: res.data.user, token: res.data.token });
+        setTimeout(() => {
+          dispatch({ type: LOG_IN_SUCCESS, user: res.data.user, token: res.data.token });
+        }, 1400);
       })
       .catch((err) => {
-        console.log(err.response.data.error);
         dispatch({ type: LOG_IN_ERROR, err: err.response.data.error });
       });
   };

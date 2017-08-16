@@ -14,13 +14,23 @@ class Root extends Component {
   render() {
     const userInfo = this.props.userInfo;
 
+    // const PrivateRoute = ({ component, ...rest }) => (
+    //   <Route {...rest} render={props => (
+    //     userInfo.data ? (
+    //       <Component {...props}/>
+    //     ) : (
+    //       <Redirect to='/login/' />
+    //     )
+    //   )}/>
+    // );
+
     return (
       <HashRouter>
-        <div>
+        <div className="app">
           <header>
             <Navbar color="faded" light toggleable>
               <NavbarToggler right onClick={this.toggle} />
-              <NavbarBrand tag={Link} to="/">Maidbot</NavbarBrand>
+              <NavbarBrand tag={Link} to="/"><span className="thin">Maid</span>bot</NavbarBrand>
               <Nav className="ml-auto" navbar>
                 <NavItem>
                   <NavLink tag={Link} to='/'>Home</NavLink>
@@ -37,7 +47,7 @@ class Root extends Component {
               </Nav>
             </Navbar>
           </header>
-          <Container fluid style={{ padding: 15 }}>
+          <Container fluid style={{ padding: 15, height: 'calc(100% - 60px)' }}>
             <Switch>
               <Route exact path="/" component={HomeContainer} />
               <Route
