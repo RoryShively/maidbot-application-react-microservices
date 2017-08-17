@@ -1,5 +1,5 @@
 // Load styles
-require('./stylesheets/main.sass')
+// require('./stylesheets/main.css')
 
 // Imports
 import React from 'react';

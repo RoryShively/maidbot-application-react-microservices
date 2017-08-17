@@ -16,7 +16,7 @@ CORS(app)
 Api(app)
 
 
-@app.route('/', methods=['POST'])
+@app.route('/api/auth', methods=['POST'])
 def login():
     data = request.get_json()
     username = data.get('username', None)

@@ -8,7 +8,7 @@ export const POSTING_MESSAGE = 'POSTING_MESSAGE';
 export const POST_MESSAGE_SUCCESS = 'POST_MESSAGE_SUCCESS';
 export const POST_MESSAGE_FAILURE = 'POST_MESSAGE_FAILURE';
 
-const MESSAGES_URL = 'http://localhost:5002';
+const MESSAGES_URL = 'http://localhost:9000/api/message';
 
 export const fetchMessages = (token) =>
   (dispatch) => {
