@@ -1,11 +1,12 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reset, reduxForm } from 'redux-form'
 import { Row, Col, Button } from 'reactstrap';
 
 import TextField from '../../../../components/TextField';
 
+
 const MessageForm = props => {
-  const { handleSubmit, pristine, reset, submitting, postMessage } = props
+  const { handleSubmit, pristine, reset, submitting, postMessage } = props;
   return (
     <form onSubmit={handleSubmit(postMessage)}>
       <Row>
@@ -30,8 +31,9 @@ const MessageForm = props => {
       </Row>
     </form>
   )
-}
+};
 
 export default reduxForm({
-  form: 'message' // a unique identifier for this form
-})(MessageForm)
+  form: 'message', // a unique identifier for this form
+  onSubmitSuccess: (res, dispatch) => dispatch(reset('message')),
+})(MessageForm);

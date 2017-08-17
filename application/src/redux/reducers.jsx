@@ -3,7 +3,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { routerReducer as routerReducer } from 'react-router-redux';
-import loginReducer from '../containers/Login/reducer';
+import loginReducer, {loadingReducer} from '../containers/Login/reducer';
 import messageReducer from '../containers/Home/reducer';
 
 
@@ -12,4 +12,5 @@ export default combineReducers({
   form: formReducer,
   userInfo: loginReducer,
   messages: messageReducer,
+  loading: loadingReducer,
 });

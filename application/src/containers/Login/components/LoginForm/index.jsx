@@ -5,7 +5,7 @@ import { Row, Col, Button } from 'reactstrap';
 import TextField from '../../../../components/TextField';
 
 const LoginForm = props => {
-  const { handleSubmit, pristine, reset, submitting, login } = props
+  const { handleSubmit, pristine, reset, submitting, login , errMessage} = props
   return (
     <form onSubmit={handleSubmit(login)}>
       <Row>
@@ -28,6 +28,7 @@ const LoginForm = props => {
           />
         </Col>
       </Row>
+      {errMessage}
       <Row>
         <Col sm="12">
           <Button

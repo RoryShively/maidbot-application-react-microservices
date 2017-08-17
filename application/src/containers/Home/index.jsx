@@ -40,7 +40,7 @@ class HomeContainer extends Component {
     return (
       <section className="message-page">
         <Row>
-          <Col sm={12} md={{size: 3, offset: 2}}>
+          <Col sm={12} md={{size: 5, offset: 0}} lg={{size: 4, offset: 1}}>
             <ReactChatView
               className="messages"
               flipped={true}
@@ -51,7 +51,7 @@ class HomeContainer extends Component {
             {getMessages()}
             </ReactChatView>
           </Col>
-          <Col sm={12} md={{size: 3, offset: 2}}>
+          <Col sm={12} md={{size: 5, offset: 2}} lg={{size: 4, offset: 2}}>
             <h1><span className="thin">message</span>room</h1>
             <MessageForm
               postMessage={(e) => { this.props.postMessage({ user:this.props.userInfo.data.username, message: e.message }, this.props.userInfo.token); }}
