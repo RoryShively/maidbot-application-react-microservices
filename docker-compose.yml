@@ -16,19 +16,10 @@ services:
       - authentication-service
       - message-service
 
-  # authentication-service:
-  #   build: ./authentication_tmep
-  #   command: npm start
-  #   volumes:
-  #     - ./authentication_tmep:/app
-  #   ports:
-  #     - 5001:3000
-  #   environment:
-  #     NODE_ENV: development
-  #     PORT: 3000
-
   authentication-service:
     build: ./authentication
+    environment:
+      - JWT_KEY="${JWT_KEY}"
     volumes:
       - ./authentication:/app
     ports:
@@ -36,6 +27,8 @@ services:
 
   message-service:
     build: ./message
+    environment:
+      - JWT_KEY="${JWT_KEY}"
     volumes:
       - ./message:/usr/src/app
     ports:

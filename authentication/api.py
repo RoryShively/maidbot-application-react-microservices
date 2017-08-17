@@ -1,14 +1,17 @@
 # Product Service
 
+import os
 import jwt
 from datetime import datetime, timedelta
-from flask import Flask, make_response, g, request, jsonify
-from flask_restful import Resource, Api
-from flask_cors import CORS, cross_origin
+from flask import Flask, request, jsonify
+from flask_restful import Api
+from flask_cors import CORS
 
 from users import UserTable, User
 
 app = Flask(__name__)
+app.config['JWT_KEY'] = os.environ['JWT_KEY']
+
 CORS(app)
 Api(app)
 
@@ -20,9 +23,7 @@ def login():
     password = data.get('password', None)
 
     if not username or not password:
-        response = jsonify({
-            'error': 'credentials incomplete'
-        })
+        response = jsonify({ 'error': 'credentials incomplete' })
         response.status_code = 401
         return response
 
@@ -30,9 +31,7 @@ def login():
     user = db_user.first('username', username)
 
     if not user:
-        response = jsonify({
-            'error': 'credentials incorrect'
-        })
+        response = jsonify({ 'error': 'credentials incorrect' })
         response.status_code = 401
         return response
 
@@ -44,7 +43,7 @@ def login():
             'role': user.role,
             'exp': datetime.utcnow() + timedelta(minutes=app.config.get('JWT_LIFETIME', 3600)),
             'iat': datetime.utcnow(),
-        }, app.config.get('JWT_KEY', 'changeme'))
+        }, app.config.get('JWT_KEY', None))
 
         response = jsonify({
             'token': token.decode('utf-8'),
@@ -54,9 +53,7 @@ def login():
         return response
 
     else:
-        response = jsonify({
-            'error': 'credentials incorrect'
-        })
+        response = jsonify({ 'error': 'credentials incorrect' })
         response.status_code = 401
         return response
 
