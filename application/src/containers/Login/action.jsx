@@ -8,7 +8,7 @@ export const LOGGED_OUT = 'LOGGED_OUT';
 export const LOADING_APP = 'LOADING_APP';
 export const APP_LOADED = 'APP_LOADED';
 
-const LOGIN_URL = 'http://localhost:5001';
+const LOGIN_URL = 'http://localhost:9000/api/auth';
 
 export const login = (username, password) =>
   (dispatch) => {
