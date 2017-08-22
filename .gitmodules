@@ -1,0 +1,3 @@
+[submodule "go-message-restapi-microservice"]
+	path = go-message-restapi-microservice
+	url = https://github.com/RoryShively/go-message-restapi-microservice.git
