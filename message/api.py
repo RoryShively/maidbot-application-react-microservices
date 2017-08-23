@@ -57,16 +57,16 @@ class Message(Resource):
 
         with open("messages.yaml", 'r') as stream:
             try:
-                old_data = yaml.load(stream)
+                messages = yaml.load(stream)
             except yaml.YAMLError as exc:
                 response = jsonify({ 'error': 'server error' })
                 response.status_code = 500
                 return response
 
-        old_data['messages'] += [data]
+        messages += [data]
 
         with open("messages.yaml", "w") as yaml_file:
-            yaml_file.write(yaml.dump(old_data, default_flow_style=False))
+            yaml_file.write(yaml.dump(messages, default_flow_style=False))
 
         response = jsonify(data)
         response.status_code = 201
