@@ -1,59 +1,59 @@
 var path = require('path');
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  context: path.join(__dirname, './src'),
+  context: path.resolve(__dirname, 'src'),
   entry: {
-    jsx: './app.jsx',
-    vendor: ['react']
+    main: './app.jsx'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/',
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [ 'babel-loader' ],
       },
       {
-        test: /\.(scss|sass)$/,
-        loaders: ["style", "css", "sass"]
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader',
+        }),
       },
       {
         test: /static\/images\/\.(png)$/,
-        loader: "url-loader?name=/static/images/$1"
+        use: [ 'url-loader?name=/static/images/$1' ],
       }
-    ],
-    noParse: ["react"]
-  },
-  devServer: {
-    historyApiFallback: true,
+    ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js'),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      filename: 'vendor.bundle.js',
+    }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') }
+    }),
+    new ExtractTextPlugin({
+      filename: "styles.css",
+      allChunks: true,
     }),
     new HtmlWebpackPlugin({
       title: 'React Boilerplate',
       template: "index.html",
       filename: "index.html",
-      minify: false
+      minify: {
+        minifyCSS: true
+      }
     })
-  ],
-  devServer: {
-    contentBase: './src'
-  },
-  devtool: 'source-map',
-  watchOptions: {
-    poll: 1000
-  }
+  ]
 }

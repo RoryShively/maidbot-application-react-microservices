@@ -1,5 +1,5 @@
 // Load styles
-// require('./stylesheets/main.css')
+import './stylesheets/main.css';
 
 // Imports
 import React from 'react';
@@ -10,6 +10,8 @@ import createHistory from 'history/createBrowserHistory';
 import configureStore from './redux/store';
 
 import RootComponent from './Root';
+
+// import styles from 'stylesheets/main.css';
 
 // const initialState = window.__INITIAL_STATE__;
 const history = createHistory();
