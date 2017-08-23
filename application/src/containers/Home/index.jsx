@@ -52,7 +52,7 @@ class HomeContainer extends Component {
             </ReactChatView>
           </Col>
           <Col sm={12} md={{size: 5, offset: 2}} lg={{size: 4, offset: 2}}>
-            <h1><span className="thin">messdddage</span>room</h1>
+            <h1><span className="thin">message</span>room</h1>
             <MessageForm
               postMessage={(e) => { this.props.postMessage({ user:this.props.userInfo.data.username, message: e.message }, this.props.userInfo.token); }}
             />
