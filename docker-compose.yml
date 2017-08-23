@@ -40,16 +40,16 @@ services:
     ports:
       - 5001:3000
 
-  message-service:
-    build: ./message
-    environment:
-      - JWT_KEY="${JWT_KEY}"
-    volumes:
-      - ./message:/usr/src/app
-    ports:
-      - 5002:3000
-
   # message-service:
-  #   build: ./go-message-restapi-microservice
+  #   build: ./message
+  #   environment:
+  #     - JWT_KEY="${JWT_KEY}"
+  #   volumes:
+  #     - ./message:/usr/src/app
   #   ports:
   #     - 5002:3000
+
+  message-service:
+    build: ./go-message-restapi-microservice
+    ports:
+      - 5002:3000
